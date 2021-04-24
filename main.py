@@ -1,3 +1,4 @@
+import flask
 from flask import Flask, render_template, request, jsonify
 import socket
 
@@ -9,12 +10,14 @@ def hello_world():
     return 'Hi!'
     #ip = soket.gethostbyname(socket.getfqdn())
     #print(ip)@app.route('/news', methods=['GET'])
-def news():
-    #return render_template("index.html", ip=ip)
+
+#def news():
+#   return render_template("index.html", ip=ip)
 
 @app.route('/about')
 def about():
     return 'About me <BR> <a href="/">Назад</a>'
+
 @app.route('/post/<int:post_id>')
 def post(post_id):
     return f'Номер этого поста: {post_id}'
@@ -37,9 +40,13 @@ def rest():
     b = 5
     a = {'one': 1, "two": 2,}
     user = {"name": "nick", 'email': 'dsd@dfsf', 'tel:': ['+79999199991', '+723241241234']}
-    return user
+    return jsonify(user)
 
+link = "http://www.google.com"
 
+@app.route('/redirect', methods =['GET'])
+def redirect_link():
+    return flask.redirect(link)
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080)
